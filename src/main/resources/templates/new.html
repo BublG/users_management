@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body class="form-body">
+<a class="link" href="/user">На главную</a>
+<h1 class="view-h1">Создание нового пользователя</h1>
+<div class="view-box">
+    <form id="form" action="/user/new" method="post">
+        <div class="field">
+            Логин
+            <input name="username" type="text">
+            <span class="error" th:text="${error}"></span>
+        </div>
+        <div class="field">
+            Пароль
+            <input name="password" type="password">
+            <span class="error"></span>
+        </div>
+        <div class="field">
+            Имя
+            <input name="firstName" type="text">
+            <span class="error"></span>
+        </div>
+        <div class="field">
+            Фамилия
+            <input name="lastName" type="text">
+            <span class="error"></span>
+        </div>
+        <div class="field">
+            Роль
+            <select name="role">
+                <option>USER</option>
+                <option>ADMIN</option>
+            </select>
+        </div>
+        <div class="field">
+            Статус
+            <select name="status">
+                <option>ACTIVE</option>
+                <option>INACTIVE</option>
+            </select>
+        </div>
+        <button class="form-btn" type="submit">Создать</button>
+    </form>
+</div>
+<script th:src="@{/js/validation.js}"></script>
+</body>
+</html>

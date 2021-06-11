@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body class="list-body">
+<div class="list-header">
+    <span class="name" th:text="${name}"></span>
+    <span sec:authorize="hasRole('ROLE_ADMIN')">
+        <a class="link" href="/user/new">Создать пользователя</a>
+    </span>
+    <form class="logout" th:action="@{/logout}" method="post">
+        <input class="logout-btn" type="submit" value="Выйти"/>
+    </form>
+</div>
+<div>
+    <table>
+        <thead>
+        <th>ID</th>
+        <th>Username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Created At</th>
+        <th>Link</th>
+        </thead>
+        <th:block th:each="account : ${userAccounts}">
+            <tr>
+                <td>
+                    <th:block th:text="${account.id}"/>
+                </td>
+                <td>
+                    <th:block th:text="${account.username}"/>
+                </td>
+                <td>
+                    <th:block th:text="${account.firstName}"/>
+                </td>
+                <td>
+                    <th:block th:text="${account.lastName}"/>
+                </td>
+                <td>
+                    <th:block th:text="${account.role}"/>
+                </td>
+                <td>
+                    <th:block th:text="${account.status}"/>
+                </td>
+                <td>
+                    <th:block th:text="${account.createdAt}"/>
+                </td>
+                <td>
+                    <a th:href="@{'/user/' + ${account.id}}">
+                        Open
+                    </a>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+</body>
+</html>

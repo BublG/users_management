@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body class="form-body">
+<a class="link" href="/user">На главную</a>
+<h1 class="view-h1">Детали пользователя</h1>
+<div class="view-box">
+    <div class="field">
+        Логин
+        <input type="text" th:value="${userAccount.username}" readonly>
+    </div>
+    <div class="field">
+        Имя
+        <input type="text" th:value="${userAccount.firstName}" readonly>
+    </div>
+    <div class="field">
+        Фамилия
+        <input type="text" th:value="${userAccount.lastName}" readonly>
+    </div>
+    <div class="field">
+        Роль
+        <input type="text" th:value="${userAccount.role}" readonly>
+    </div>
+    <div class="field">
+        Статус
+        <input type="text" th:value="${userAccount.status}" readonly>
+    </div>
+    <div class="field">
+        Дата создания
+        <input type="text" th:value="${userAccount.createdAt}" readonly>
+    </div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <span th:if="${userAccount.status} == 'ACTIVE'">
+            <a th:href="@{'/user/' + ${userAccount.id} + '/lock'}">
+                <button class="form-btn">Заблокировать</button>
+            </a>
+        </span>
+        <span th:if="${userAccount.status} == 'INACTIVE'">
+            <a th:href="@{'/user/' + ${userAccount.id} + '/unlock'}">
+                <button class="form-btn">Разблокировать</button>
+            </a>
+        </span>
+        <a th:href="@{'/user/' + ${userAccount.id} + '/edit'}">
+            <button class="form-btn">Редактировать</button>
+        </a>
+    </div>
+</div>
+</body>
+</html>

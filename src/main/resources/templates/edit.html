@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body class="form-body">
+<a class="link" href="/user">На главную</a>
+<h1 class="view-h1">Редактирование пользователя</h1>
+<div class="view-box">
+    <form id="form" th:action="@{'/user/' + ${userAccount.id} + '/edit' }" method="post">
+        <div class="field">
+            Логин
+            <input name="username" type="text" th:value="${userAccount.username}">
+            <span class="error" th:text="${error}"></span>
+        </div>
+        <div class="field">
+            Пароль
+            <input name="password" type="password">
+            <span class="error"></span>
+        </div>
+        <div class="field">
+            Имя
+            <input name="firstName" type="text" th:value="${userAccount.firstName}">
+            <span class="error"></span>
+        </div>
+        <div class="field">
+            Фамилия
+            <input name="lastName" type="text" th:value="${userAccount.lastName}">
+            <span class="error"></span>
+        </div>
+        <div class="field">
+            Роль
+            <select id="role" name="role">
+                <option>USER</option>
+                <option>ADMIN</option>
+            </select>
+        </div>
+        <div class="field">
+            Статус
+            <select id="status" name="status">
+                <option>ACTIVE</option>
+                <option>INACTIVE</option>
+            </select>
+        </div>
+        <button class="form-btn" type="submit">Сохранить</button>
+    </form>
+</div>
+<script th:inline="javascript">
+    let roleField = document.getElementById("role");
+    let statusField = document.getElementById("status");
+
+    window.onload = function () {
+        roleField.value = [[${userAccount.role}]];
+        statusField.value = [[${userAccount.status}]];
+    }
+</script>
+<script th:src="@{/js/validation.js}"></script>
+</body>
+</html>
